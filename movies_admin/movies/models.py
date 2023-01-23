@@ -1,4 +1,6 @@
 import uuid
+
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -43,7 +45,7 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
     title = models.CharField('title', max_length=255)
     description = models.TextField('description', blank=True)
     creation_date = models.DateField('creation_date')
-    rating = models.FloatField('rating')
+    rating = models.FloatField('rating', blank=True, validators=[MinValueValidator(0), MaxValueValidator(10)])
     type = models.CharField(max_length=7, choices=Types.choices, default=Types.MOVIE)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
