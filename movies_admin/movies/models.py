@@ -3,7 +3,22 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class Genre(models.Model):
+class TimeStampedMixin(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class UUIDMixin(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    class Meta:
+        abstract = True
+
+
+class Genre(UUIDMixin, TimeStampedMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField('name', max_length=255)
     description = models.TextField('description', blank=True)
@@ -19,7 +34,7 @@ class Genre(models.Model):
         return self.name
 
 
-class Filmwork(models.Model):
+class Filmwork(UUIDMixin, TimeStampedMixin):
     class Types(models.TextChoices):
         MOVIE = 'movie', _('Фильм')
         TV_SHOW = 'tv_show', _('Телешоу')
