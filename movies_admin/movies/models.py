@@ -15,6 +15,9 @@ class Genre(models.Model):
         verbose_name = 'Жанр'
         verbose_name_plural = 'Жанры'
 
+    def __str__(self):
+        return self.name
+
 
 class Filmwork(models.Model):
     class Types(models.TextChoices):
@@ -32,5 +35,8 @@ class Filmwork(models.Model):
 
     class Meta:
         db_table = "content\".\"film_work"
-        verbose_name = 'Фильм'
-        verbose_name_plural = 'Фильмы'
+        verbose_name = 'Кинопроизведение'
+        verbose_name_plural = 'Кинопроизведения'
+
+    def __str__(self):
+        return self.title
