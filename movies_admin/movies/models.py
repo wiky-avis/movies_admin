@@ -22,12 +22,13 @@ class UUIDMixin(models.Model):
 
 class Genre(UUIDMixin, TimeStampedMixin):
     name = models.CharField('name', max_length=255)
-    description = models.TextField('description', blank=True)
+    description = models.TextField('description', blank=True, null=True)
 
     class Meta:
         db_table = "content\".\"genre"
         verbose_name = 'Жанр'
         verbose_name_plural = 'Жанры'
+        unique_together = (('id', 'name'),)
 
     def __str__(self):
         return self.name
@@ -52,7 +53,7 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
 
     title = models.CharField('title', max_length=255)
     description = models.TextField('description', blank=True)
-    creation_date = models.DateField('creation_date')
+    creation_date = models.DateField('creation_date', blank=True, null=True)
     rating = models.FloatField('rating', blank=True, validators=[MinValueValidator(0), MaxValueValidator(10)])
     type = models.CharField(max_length=7, choices=Types.choices, default=Types.MOVIE)
     genres = models.ManyToManyField(Genre, through='GenreFilmwork')
@@ -62,6 +63,7 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
         db_table = "content\".\"film_work"
         verbose_name = 'Кинопроизведение'
         verbose_name_plural = 'Кинопроизведения'
+        unique_together = (('id', 'title', 'creation_date'),)
 
     def __str__(self):
         return self.title
