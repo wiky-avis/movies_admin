@@ -35,7 +35,7 @@ class Genre(UUIDMixin, TimeStampedMixin):
 
 
 class Person(UUIDMixin, TimeStampedMixin):
-    full_name = models.CharField(_('full name'), max_length=255)
+    full_name = models.CharField(_('full_name'), max_length=255)
 
     class Meta:
         db_table = "content\".\"person"
@@ -48,12 +48,12 @@ class Person(UUIDMixin, TimeStampedMixin):
 
 class Filmwork(UUIDMixin, TimeStampedMixin):
     class Types(models.TextChoices):
-        MOVIE = 'movie', _('Фильм')
-        TV_SHOW = 'tv_show', _('Телешоу')
+        MOVIE = 'movie', _('movie')
+        TV_SHOW = 'tv_show', _('tv_show')
 
     title = models.CharField(_('title'), max_length=255)
     description = models.TextField(_('description'), blank=True)
-    creation_date = models.DateField(_('creation date'), blank=True, null=True)
+    creation_date = models.DateField(_('creation_date'), blank=True, null=True)
     rating = models.FloatField(_('rating'), blank=True, validators=[MinValueValidator(0), MaxValueValidator(10)])
     type = models.CharField(_('type'), max_length=7, choices=Types.choices, default=Types.MOVIE)
     genres = models.ManyToManyField(Genre, through='GenreFilmwork')
