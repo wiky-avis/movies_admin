@@ -6,8 +6,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 class TimeStampedMixin(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(_('created'), auto_now_add=True)
+    modified = models.DateTimeField(_('modified'), auto_now=True)
 
     class Meta:
         abstract = True
@@ -21,8 +21,8 @@ class UUIDMixin(models.Model):
 
 
 class Genre(UUIDMixin, TimeStampedMixin):
-    name = models.CharField('name', max_length=255)
-    description = models.TextField('description', blank=True, null=True)
+    name = models.CharField(_('name'), max_length=255)
+    description = models.TextField(_('description'), blank=True, null=True)
 
     class Meta:
         db_table = "content\".\"genre"
@@ -35,7 +35,7 @@ class Genre(UUIDMixin, TimeStampedMixin):
 
 
 class Person(UUIDMixin, TimeStampedMixin):
-    full_name = models.CharField('full_name', max_length=255)
+    full_name = models.CharField(_('full name'), max_length=255)
 
     class Meta:
         db_table = "content\".\"person"
@@ -51,11 +51,11 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
         MOVIE = 'movie', _('Фильм')
         TV_SHOW = 'tv_show', _('Телешоу')
 
-    title = models.CharField('title', max_length=255)
-    description = models.TextField('description', blank=True)
-    creation_date = models.DateField('creation_date', blank=True, null=True)
-    rating = models.FloatField('rating', blank=True, validators=[MinValueValidator(0), MaxValueValidator(10)])
-    type = models.CharField(max_length=7, choices=Types.choices, default=Types.MOVIE)
+    title = models.CharField(_('title'), max_length=255)
+    description = models.TextField(_('description'), blank=True)
+    creation_date = models.DateField(_('creation date'), blank=True, null=True)
+    rating = models.FloatField(_('rating'), blank=True, validators=[MinValueValidator(0), MaxValueValidator(10)])
+    type = models.CharField(_('type'), max_length=7, choices=Types.choices, default=Types.MOVIE)
     genres = models.ManyToManyField(Genre, through='GenreFilmwork')
     persons = models.ManyToManyField(Person, through='PersonFilmwork')
 
@@ -81,7 +81,7 @@ class GenreFilmwork(UUIDMixin):
 class PersonFilmwork(UUIDMixin):
     film_work = models.ForeignKey('Filmwork', on_delete=models.CASCADE)
     person = models.ForeignKey('Person', on_delete=models.CASCADE)
-    role = models.TextField('role', null=True)
+    role = models.TextField(_('role'), null=True)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:

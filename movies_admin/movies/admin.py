@@ -4,12 +4,12 @@ from .models import Genre, Filmwork, GenreFilmwork, Person, PersonFilmwork
 
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('id', 'name', )
 
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('id', 'full_name', )
 
 
 class GenreFilmworkInline(admin.TabularInline):
@@ -23,3 +23,6 @@ class PersonFilmworkInline(admin.TabularInline):
 @admin.register(Filmwork)
 class FilmworkAdmin(admin.ModelAdmin):
     inlines = (GenreFilmworkInline, PersonFilmworkInline,)
+    list_display = ('id', 'title', 'type', 'creation_date', 'rating',)
+    list_filter = ('type', 'creation_date', 'rating', 'genres', 'persons',)
+    search_fields = ('title', 'description', 'id',)
