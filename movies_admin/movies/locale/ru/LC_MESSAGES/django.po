@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-23 19:41+0000\n"
+"POT-Creation-Date: 2023-01-24 06:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,13 +40,29 @@ msgstr "Имя"
 msgid "description"
 msgstr "Описание"
 
+#: movies/models.py:29 movies/models.py:74
+msgid "genre"
+msgstr "Жанр"
+
+#: movies/models.py:30 movies/models.py:59 movies/models.py:79
+msgid "genres"
+msgstr "Жанры"
+
 #: movies/models.py:38
 msgid "full_name"
 msgstr "Полное имя"
 
+#: movies/models.py:42 movies/models.py:84
+msgid "person"
+msgstr "Персона"
+
+#: movies/models.py:43 movies/models.py:60 movies/models.py:90
+msgid "persons"
+msgstr "Персоны"
+
 #: movies/models.py:51
 msgid "movie"
-msgstr "Кинопроизвидение"
+msgstr "Фильм"
 
 #: movies/models.py:52
 msgid "tv_show"
@@ -68,6 +84,14 @@ msgstr "Рейтинг"
 msgid "type"
 msgstr "Тип"
 
-#: movies/models.py:84
+#: movies/models.py:64
+msgid "Filmwork"
+msgstr "Кинопроизвидение"
+
+#: movies/models.py:65
+msgid "Filmworks"
+msgstr "Кинопроизвидения"
+
+#: movies/models.py:85
 msgid "role"
 msgstr "Роль"

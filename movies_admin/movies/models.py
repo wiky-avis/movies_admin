@@ -26,8 +26,8 @@ class Genre(UUIDMixin, TimeStampedMixin):
 
     class Meta:
         db_table = "content\".\"genre"
-        verbose_name = 'Жанр'
-        verbose_name_plural = 'Жанры'
+        verbose_name = _("genre")
+        verbose_name_plural = _("genres")
         unique_together = (('id', 'name'),)
 
     def __str__(self):
@@ -39,8 +39,8 @@ class Person(UUIDMixin, TimeStampedMixin):
 
     class Meta:
         db_table = "content\".\"person"
-        verbose_name = 'Персона'
-        verbose_name_plural = 'Персоны'
+        verbose_name = _("person")
+        verbose_name_plural = _("persons")
 
     def __str__(self):
         return self.full_name
@@ -56,13 +56,13 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
     creation_date = models.DateField(_('creation_date'), blank=True, null=True)
     rating = models.FloatField(_('rating'), blank=True, validators=[MinValueValidator(0), MaxValueValidator(10)])
     type = models.CharField(_('type'), max_length=7, choices=Types.choices, default=Types.MOVIE)
-    genres = models.ManyToManyField(Genre, through='GenreFilmwork')
-    persons = models.ManyToManyField(Person, through='PersonFilmwork')
+    genres = models.ManyToManyField(Genre, through='GenreFilmwork', verbose_name=_("genres"))
+    persons = models.ManyToManyField(Person, through='PersonFilmwork', verbose_name=_("persons"))
 
     class Meta:
         db_table = "content\".\"film_work"
-        verbose_name = 'Кинопроизведение'
-        verbose_name_plural = 'Кинопроизведения'
+        verbose_name = _('Filmwork')
+        verbose_name_plural = _('Filmworks')
         unique_together = (('id', 'title', 'creation_date'),)
 
     def __str__(self):
@@ -71,18 +71,20 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
 
 class GenreFilmwork(UUIDMixin):
     film_work = models.ForeignKey('Filmwork', on_delete=models.CASCADE)
-    genre = models.ForeignKey('Genre', on_delete=models.CASCADE)
+    genre = models.ForeignKey('Genre', on_delete=models.CASCADE, verbose_name=_("genre"))
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "content\".\"genre_film_work"
+        verbose_name_plural = _("genres")
 
 
 class PersonFilmwork(UUIDMixin):
     film_work = models.ForeignKey('Filmwork', on_delete=models.CASCADE)
-    person = models.ForeignKey('Person', on_delete=models.CASCADE)
+    person = models.ForeignKey('Person', on_delete=models.CASCADE, verbose_name=_("person"))
     role = models.TextField(_('role'), null=True)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "content\".\"person_film_work"
+        verbose_name_plural = _("persons")
