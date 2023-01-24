@@ -16,12 +16,12 @@ class PersonAdmin(admin.ModelAdmin):
 
 class GenreFilmworkInline(admin.TabularInline):
     model = GenreFilmwork
-    extra = 0
+    extra = 1
 
 
 class PersonFilmworkInline(admin.TabularInline):
     model = PersonFilmwork
-    extra = 0
+    extra = 1
 
 
 @admin.register(Filmwork)
