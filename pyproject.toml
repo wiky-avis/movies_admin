@@ -2,7 +2,7 @@
 name = "new_admin_panel_sprint_1"
 version = "0.1.0"
 description = ""
-authors = ["Аксентий Виктория Георгиевна <vgaksentii@domclick.ru>"]
+authors = []
 
 [tool.poetry.dependencies]
 python = "^3.9"
