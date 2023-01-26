@@ -1,17 +1,30 @@
 from django.contrib import admin
-from .models import Genre, Filmwork, GenreFilmwork, Person, PersonFilmwork
+
+from .models import Filmwork, Genre, GenreFilmwork, Person, PersonFilmwork
 
 
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', )
-    search_fields = ('name', 'id')
+    list_display = (
+        "id",
+        "name",
+    )
+    search_fields = (
+        "name",
+        "id",
+    )
 
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ('id', 'full_name', )
-    search_fields = ('full_name', 'id')
+    list_display = (
+        "id",
+        "full_name",
+    )
+    search_fields = (
+        "full_name",
+        "id",
+    )
 
 
 class GenreFilmworkInline(admin.TabularInline):
@@ -26,7 +39,25 @@ class PersonFilmworkInline(admin.TabularInline):
 
 @admin.register(Filmwork)
 class FilmworkAdmin(admin.ModelAdmin):
-    inlines = (GenreFilmworkInline, PersonFilmworkInline,)
-    list_display = ('title', 'type', 'creation_date', 'rating',)
-    list_filter = ('type', 'creation_date', 'rating', 'genres', 'persons',)
-    search_fields = ('title', 'description', 'id',)
+    inlines = (
+        GenreFilmworkInline,
+        PersonFilmworkInline,
+    )
+    list_display = (
+        "title",
+        "type",
+        "creation_date",
+        "rating",
+    )
+    list_filter = (
+        "type",
+        "creation_date",
+        "rating",
+        "genres",
+        "persons",
+    )
+    search_fields = (
+        "title",
+        "description",
+        "id",
+    )

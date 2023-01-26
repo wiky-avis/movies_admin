@@ -17,6 +17,6 @@ class FilmWork:
     # и будет соответствовать атрибутам, объявленным вами в классе
 
 
-movie = FilmWork(title='movie', description='new movie', rating=0.0)
+movie = FilmWork(title="movie", description="new movie", rating=0.0)
 print(movie)
 # Movie(title='movie', description='new movie', rating=0.0, id=UUID('6fe77164-1dfe-470d-a32d-071973759539'))
