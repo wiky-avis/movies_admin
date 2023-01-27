@@ -28,7 +28,7 @@ class Genre(UUIDMixin, TimeStampedMixin):
         db_table = 'content"."genre'
         verbose_name = _("genre")
         verbose_name_plural = _("genres")
-        unique_together = (("id", "name"),)
+        ordering = ("name",)
 
     def __str__(self):
         return self.name
@@ -41,6 +41,7 @@ class Person(UUIDMixin, TimeStampedMixin):
         db_table = 'content"."person'
         verbose_name = _("person")
         verbose_name_plural = _("persons")
+        ordering = ("full_name",)
 
     def __str__(self):
         return self.full_name
@@ -73,6 +74,8 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
         db_table = 'content"."film_work'
         verbose_name = _("Filmwork")
         verbose_name_plural = _("Filmworks")
+        unique_together = (("title", "creation_date"),)
+        ordering = ("title",)
 
     def __str__(self):
         return self.title
@@ -88,6 +91,8 @@ class GenreFilmwork(UUIDMixin):
     class Meta:
         db_table = 'content"."genre_film_work'
         verbose_name_plural = _("genres")
+        unique_together = (("film_work", "genre"),)
+        ordering = ("id",)
 
 
 class PersonFilmwork(UUIDMixin):
@@ -101,3 +106,5 @@ class PersonFilmwork(UUIDMixin):
     class Meta:
         db_table = 'content"."person_film_work'
         verbose_name_plural = _("persons")
+        unique_together = (("film_work", "person", "role"),)
+        ordering = ("id",)

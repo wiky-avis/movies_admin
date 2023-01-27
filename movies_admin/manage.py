@@ -3,7 +3,7 @@
 import os
 import sys
 
-from movies_admin.config.settings.base import CONFIG_PATH
+from config.settings.base import CONFIG_PATH
 
 
 def main():

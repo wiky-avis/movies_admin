@@ -54,10 +54,10 @@ class FilmworkAdmin(admin.ModelAdmin):
         "creation_date",
         "rating",
         "genres",
-        "persons",
     )
     search_fields = (
         "title",
         "description",
         "id",
+        "persons",
     )
