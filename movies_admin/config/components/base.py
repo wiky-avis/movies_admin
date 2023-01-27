@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
-from split_settings.tools import include
 
 
 load_dotenv()
@@ -51,10 +50,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-include(
-    "../components/database.py",
-)
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -89,5 +84,5 @@ LOCALE_PATHS = ["movies/locale"]
 ROLE = os.environ.get("ROLE", default="dev")
 
 CONFIG_PATH = (
-    "config.settings.production" if ROLE == "prod" else "config.settings.dev"
+    "config.environments.prod" if ROLE == "prod" else "config.environments.dev"
 )

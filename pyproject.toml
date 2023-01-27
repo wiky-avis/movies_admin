@@ -29,11 +29,11 @@ psycopg2-binary = "2.9"
 django-debug-toolbar = "3.4.0"
 Faker = "16.6.0"
 python-gettext = "4.1"
+click = "8.0.4"
 # linters
 black = "22.1.0"
 flake8 = "4.0.1"
 isort = "5.10.1"
-click = "8.0.4"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
