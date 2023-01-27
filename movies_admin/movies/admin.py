@@ -6,24 +6,24 @@ from .models import Filmwork, Genre, GenreFilmwork, Person, PersonFilmwork
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
     list_display = (
-        "id",
         "name",
+        "id",
     )
     search_fields = (
-        "name",
         "id",
+        "name",
     )
 
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
     list_display = (
-        "id",
         "full_name",
+        "id",
     )
     search_fields = (
-        "full_name",
         "id",
+        "full_name",
     )
 
 
@@ -35,6 +35,7 @@ class GenreFilmworkInline(admin.TabularInline):
 class PersonFilmworkInline(admin.TabularInline):
     model = PersonFilmwork
     extra = 1
+    autocomplete_fields = ("person",)
 
 
 @admin.register(Filmwork)
@@ -44,6 +45,7 @@ class FilmworkAdmin(admin.ModelAdmin):
         PersonFilmworkInline,
     )
     list_display = (
+        "id",
         "title",
         "type",
         "creation_date",
@@ -61,3 +63,4 @@ class FilmworkAdmin(admin.ModelAdmin):
         "id",
         "persons",
     )
+    list_display_links = ("title",)
