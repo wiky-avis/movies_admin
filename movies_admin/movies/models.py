@@ -25,9 +25,10 @@ class Genre(UUIDMixin, TimeStampedMixin):
     description = models.TextField(_("description"), blank=True, null=True)
 
     class Meta:
-        db_table = 'content"."genre'
+        db_table = "genre"
         verbose_name = _("genre")
         verbose_name_plural = _("genres")
+        unique_together = (("name",),)
         ordering = ("name",)
 
     def __str__(self):
@@ -38,7 +39,7 @@ class Person(UUIDMixin, TimeStampedMixin):
     full_name = models.CharField(_("full_name"), max_length=255)
 
     class Meta:
-        db_table = 'content"."person'
+        db_table = "person"
         verbose_name = _("person")
         verbose_name_plural = _("persons")
         ordering = ("full_name",)
@@ -71,7 +72,7 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
     )
 
     class Meta:
-        db_table = 'content"."film_work'
+        db_table = "film_work"
         verbose_name = _("Filmwork")
         verbose_name_plural = _("Filmworks")
         unique_together = (("title", "creation_date"),)
@@ -89,7 +90,7 @@ class GenreFilmwork(UUIDMixin):
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = 'content"."genre_film_work'
+        db_table = "genre_film_work"
         verbose_name_plural = _("genres")
         unique_together = (("film_work", "genre"),)
         ordering = ("id",)
@@ -104,7 +105,7 @@ class PersonFilmwork(UUIDMixin):
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = 'content"."person_film_work'
+        db_table = "person_film_work"
         verbose_name_plural = _("persons")
         unique_together = (("film_work", "person", "role"),)
         ordering = ("id",)
