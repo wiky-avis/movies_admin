@@ -1,22 +1,49 @@
 import uuid
 from dataclasses import dataclass, field
+from datetime import date, datetime
+from typing import Optional
 
 
-# @dataclass(frozen=True)
 @dataclass
 class FilmWork:
-    # Обратите внимание: для каждого поля указан тип
+    id: uuid.UUID
     title: str
-    description: str
-    # Ещё один бонус: в dataclass вы можете определить значение по умолчанию
+    description: Optional[str] = None
+    creation_date: Optional[date] = None
     rating: float = field(default=0.0)
-    id: uuid.UUID = field(default_factory=uuid.uuid4)
-
-    # Ключевое отличие от обычных классов: вам не требуется объявлять метод __init__!
-    # def __init__(self, title, description, id): сгенерируется автоматически под капотом
-    # и будет соответствовать атрибутам, объявленным вами в классе
+    created: datetime = field(default=datetime.now())
+    modified: datetime = field(default=datetime.now())
 
 
-movie = FilmWork(title="movie", description="new movie", rating=0.0)
-print(movie)
-# Movie(title='movie', description='new movie', rating=0.0, id=UUID('6fe77164-1dfe-470d-a32d-071973759539'))
+@dataclass
+class Person:
+    id: uuid.UUID
+    full_name: str
+    created: datetime = field(default=datetime.now())
+    modified: datetime = field(default=datetime.now())
+
+
+@dataclass
+class Genre:
+    id: uuid.UUID
+    name: str
+    description: Optional[str] = None
+    created: datetime = field(default=datetime.now())
+    modified: datetime = field(default=datetime.now())
+
+
+@dataclass
+class GenreFilmWork:
+    id: uuid.UUID
+    genre_id: uuid.UUID
+    film_work_id: uuid.UUID
+    created: datetime = field(default=datetime.now())
+
+
+@dataclass
+class PersonFilmWork:
+    id: uuid.UUID
+    person_id: uuid.UUID
+    film_work_id: uuid.UUID
+    role: str
+    created: datetime = field(default=datetime.now())
