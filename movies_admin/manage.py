@@ -1,11 +1,9 @@
 import os
 import sys
 
-from movies_admin.config.components.base import CONFIG_PATH
-
 
 def main():
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", CONFIG_PATH)
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
