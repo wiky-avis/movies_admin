@@ -70,7 +70,9 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
     persons = models.ManyToManyField(
         Person, through="PersonFilmwork", verbose_name=_("persons")
     )
-    # file_path = models.FileField(_('file'), blank=True, null=True, upload_to='movies/')
+    file_path = models.FileField(
+        _("file"), blank=True, null=True, upload_to="movies/"
+    )
 
     class Meta:
         db_table = "film_work"
