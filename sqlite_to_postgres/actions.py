@@ -57,7 +57,7 @@ class PostgresSaver:
             try:
                 execute_batch(
                     self.cursor,
-                    f"INSERT INTO {table_name}({fields}) VALUES({values})",
+                    f"INSERT INTO {table_name}({fields}) VALUES({values}) ON CONFLICT(id) DO NOTHING",
                     records,
                     page_size=CHANK,
                 )
