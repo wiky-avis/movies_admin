@@ -1,12 +1,13 @@
 import logging
 import sqlite3
 from dataclasses import asdict, dataclass
-from typing import Any, Iterator, List, Tuple
+from typing import Iterator, List
 
 import psycopg2
 from consts import CHANK
-from models import TableName
 from psycopg2.extras import execute_batch
+
+from sqlite_to_postgres.common import get_fields, get_values
 
 
 class SQLiteExtractor:
@@ -42,53 +43,14 @@ class PostgresSaver:
         self.pg_conn = conn
         self.cursor = self.pg_conn.cursor()
 
-    def get_fields(self, table_name: str) -> List[str]:
-        return {
-            TableName.FILM_WORK.value: [
-                "id",
-                "title",
-                "description",
-                "creation_date",
-                "rating",
-                "type",
-                "created",
-                "modified",
-                "file_path",
-            ],
-            TableName.GENRE.value: [
-                "id",
-                "name",
-                "description",
-                "created",
-                "modified",
-            ],
-            TableName.PERSON.value: ["id", "full_name", "created", "modified"],
-            TableName.GENRE_FILM_WORK.value: [
-                "id",
-                "genre_id",
-                "film_work_id",
-                "created",
-            ],
-            TableName.PERSON_FILM_WORK.value: [
-                "id",
-                "person_id",
-                "film_work_id",
-                "role",
-                "created",
-            ],
-        }.get(table_name)
-
-    def get_values(self, row: dict, table_name: str) -> Tuple[Any]:
-        return tuple(row[field] for field in self.get_fields(table_name))
-
     def save_all_data(
         self, pages: Iterator[List[dataclass]], table_name: str
     ) -> None:
         for page in pages:
-            fields = ", ".join(self.get_fields(table_name))
-            values = ", ".join(["%s" for _ in self.get_fields(table_name)])
+            fields = ", ".join(get_fields(table_name))
+            values = ", ".join(["%s" for _ in get_fields(table_name)])
             records = [
-                self.get_values(asdict(row), table_name)
+                get_values(asdict(row), table_name)
                 for records in page
                 for row in records
             ]
