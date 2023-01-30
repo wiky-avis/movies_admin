@@ -1,12 +1,18 @@
 import os
-from subprocess import Popen, PIPE
+from subprocess import PIPE, Popen
 
 import psycopg2
 import pytest
 from psycopg2.extras import DictCursor
 
-from movies_admin.config.components.base import BASE_DIR
-from sqlite_to_postgres.consts import DSL
+
+DSL = {
+    "dbname": "movies_database",
+    "user": "app",
+    "password": "123qwe",
+    "host": "127.0.0.1",
+    "port": 5432,
+}
 
 
 def _execute_psql():
@@ -21,36 +27,73 @@ def _execute_psql():
         f"-f schema_design/movies_database.ddl "
     )
 
-    proc = Popen(command, stdout=PIPE, stderr=PIPE, env=dict(os.environ, PGPASSWORD="123qwe"), shell=True)
+    proc = Popen(
+        command,
+        stdout=PIPE,
+        stderr=PIPE,
+        env=dict(os.environ, PGPASSWORD="123qwe"),
+        shell=True,
+    )
 
     stdout, stderr = proc.communicate()
     if proc.returncode:
-        raise Exception("Error during running command %s: \n %s" % (command, stderr))
+        raise Exception(
+            "Error during running command %s: \n %s" % (command, stderr)
+        )
 
 
-def _run_migrations(path_to_migrations):
-    command = f"python manage.py migrate"
+def _run_migrations():
+    command = (
+        f"python3 movies_admin/manage.py migrate --settings=config.settings"
+    )
     proc = Popen(command, stdout=PIPE, stderr=PIPE, shell=True)
     stdout, stderr = proc.communicate()
     if proc.returncode:
-        raise Exception("Error during running command %s: \n %s" % (command, stderr))
+        raise Exception(
+            "Error during running command %s: \n %s" % (command, stderr)
+        )
+
+
+def _load_test_data():
+    command = ("cd sqlite_to_postgres && python3 load_data.py",)
+    proc = Popen(command, stdout=PIPE, stderr=PIPE, shell=True)
+    stdout, stderr = proc.communicate()
+    if proc.returncode:
+        raise Exception(
+            "Error during running command %s: \n %s" % (command, stderr)
+        )
 
 
 @pytest.fixture(scope="session", autouse=True)
 def db(pytestconfig):
     _execute_psql()
-    migration_path = os.path.join(BASE_DIR, "movies", "migrations")
-    if not os.path.exists(migration_path):
-        raise FileNotFoundError(f"migration path {migration_path} doesn't exist")
-    _run_migrations(migration_path)
+    _run_migrations()
+    _load_test_data()
 
 
 def clean_tables(*tables):
-    db_conn = psycopg2.connect(**DSL, cursor_factory=DictCursor)
+    pg_conn = psycopg2.connect(**DSL, cursor_factory=DictCursor)
 
-    for conn in db_conn:
-        with conn.cursor() as cur:
+    if pg_conn:
+        with pg_conn.cursor() as cur:
             for table in tables:
                 cur.execute("DELETE FROM %s" % table)
-        conn.commit()
-        conn.close()
+        pg_conn.commit()
+        pg_conn.close()
+
+
+@pytest.fixture
+def clean_table(request):
+    """
+    Фикстура для очистки таблиц
+
+    .. code-block:: python
+
+        @pytest.mark.parametrize('clean_table', [('first', 'second')], indirect=True)
+
+    """
+
+    def teardown():
+        clean_tables(*request.param)
+
+    request.addfinalizer(teardown)
