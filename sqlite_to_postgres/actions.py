@@ -4,10 +4,10 @@ from dataclasses import asdict, dataclass
 from typing import Iterator, List
 
 import psycopg2
+from common import get_fields, get_values
 from consts import CHANK
+from psycopg2.extensions import connection
 from psycopg2.extras import execute_batch
-
-from sqlite_to_postgres.common import get_fields, get_values
 
 
 class SQLiteExtractor:
@@ -39,7 +39,7 @@ class SQLiteExtractor:
 
 
 class PostgresSaver:
-    def __init__(self, conn):
+    def __init__(self, conn: connection):
         self.pg_conn = conn
         self.cursor = self.pg_conn.cursor()
 
