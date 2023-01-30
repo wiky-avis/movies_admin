@@ -115,17 +115,6 @@ python-versions = ">=3.7"
 test = ["pytest (>=6)"]
 
 [[package]]
-name = "faker"
-version = "16.6.0"
-description = "Faker is a Python package that generates fake data for you."
-category = "dev"
-optional = false
-python-versions = ">=3.7"
-
-[package.dependencies]
-python-dateutil = ">=2.4"
-
-[[package]]
 name = "flake8"
 version = "4.0.1"
 description = "the modular source code checker: pep8 pyflakes and co"
@@ -333,7 +322,7 @@ python-versions = ">=3.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "d2d82edab672d91ac7459c3c04b7303ae2ec3adc9b6e82dbe3a4edc6689dd2a0"
+content-hash = "120ff3ef43396ca5a0cdca55847b4a149c0411ce377a6cf8e5cbb8b45fbc8c90"
 
 [metadata.files]
 asgiref = []
@@ -369,7 +358,6 @@ django = []
 django-debug-toolbar = []
 django-split-settings = []
 exceptiongroup = []
-faker = []
 flake8 = [
     {file = "flake8-4.0.1-py2.py3-none-any.whl", hash = "sha256:479b1304f72536a55948cb40a32dce8bb0ffe3501e26eaf292c7e60eb5e0428d"},
     {file = "flake8-4.0.1.tar.gz", hash = "sha256:806e034dda44114815e23c16ef92f95c91e4c71100ff52813adf7132a6ad870d"},

@@ -43,3 +43,7 @@ docker run -d \
   -e POSTGRES_DB=movies_database  \
   postgres:13
 ```
+Запустить тесты
+```bash
+pytest
+```

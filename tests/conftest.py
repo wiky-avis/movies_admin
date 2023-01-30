@@ -1,4 +1,5 @@
 import os
+import sqlite3
 from subprocess import PIPE, Popen
 
 import psycopg2
@@ -16,9 +17,6 @@ DSL = {
 
 
 def _execute_psql():
-    """
-    Выполняет команду psql
-    """
     command = (
         f"psql "
         f"-h 127.0.0.1 "
@@ -26,7 +24,6 @@ def _execute_psql():
         f"-d movies_database "
         f"-f schema_design/movies_database.ddl "
     )
-
     proc = Popen(
         command,
         stdout=PIPE,
@@ -34,7 +31,6 @@ def _execute_psql():
         env=dict(os.environ, PGPASSWORD="123qwe"),
         shell=True,
     )
-
     stdout, stderr = proc.communicate()
     if proc.returncode:
         raise Exception(
@@ -73,7 +69,6 @@ def db(pytestconfig):
 
 def clean_tables(*tables):
     pg_conn = psycopg2.connect(**DSL, cursor_factory=DictCursor)
-
     if pg_conn:
         with pg_conn.cursor() as cur:
             for table in tables:
@@ -84,16 +79,19 @@ def clean_tables(*tables):
 
 @pytest.fixture
 def clean_table(request):
-    """
-    Фикстура для очистки таблиц
-
-    .. code-block:: python
-
-        @pytest.mark.parametrize('clean_table', [('first', 'second')], indirect=True)
-
-    """
-
     def teardown():
         clean_tables(*request.param)
 
     request.addfinalizer(teardown)
+
+
+@pytest.fixture
+def sqlite_db():
+    with sqlite3.connect("sqlite_to_postgres/db.sqlite") as sqlite_conn:
+        yield sqlite_conn.cursor()
+
+
+@pytest.fixture
+def pg_db():
+    with psycopg2.connect(**DSL, cursor_factory=DictCursor) as pg_conn:
+        yield pg_conn.cursor()
