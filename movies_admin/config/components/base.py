@@ -8,6 +8,8 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# BASE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
+
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 INSTALLED_APPS = [

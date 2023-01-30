@@ -23,10 +23,24 @@ python movies_admin/manage.py migrate
 
 ## Перенос данных из sqlite в postgres
 ```bash
-python sqlite_to_postgres/load_data.py
+cd sqlite_to_postgres
+python load_data.py
 ```
 
 ## Прогнать линтеры
 ```bash
 make linters
+```
+
+## Тестирование
+Поднять контейнер c БД Postgres
+```bash
+docker run -d \
+  --name postgres \
+  -p 5432:5432 \
+  -v $HOME/postgresql/data:/var/lib/postgresql/data \
+  -e POSTGRES_PASSWORD=123qwe \
+  -e POSTGRES_USER=app \
+  -e POSTGRES_DB=movies_database  \
+  postgres:13
 ```

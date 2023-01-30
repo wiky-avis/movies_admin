@@ -1,6 +1,6 @@
 from typing import Any, List, Tuple
 
-from sqlite_to_postgres.models import TableName
+from models import TableName
 
 
 def get_fields(table_name: str) -> List[str]:
