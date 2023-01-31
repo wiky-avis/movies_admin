@@ -11,5 +11,4 @@ base_settings = [
     "environments/{0}.py".format(ROLE),
 ]
 
-# Include settings:
 include(*base_settings)

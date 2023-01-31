@@ -18,7 +18,7 @@ psql -h 127.0.0.1 -U app -d movies_database -f schema_design/movies_database.ddl
 
 ## Применение миграций
 ```bash
-python3 movies_admin/manage.py migrate --settings=config.settings
+python3 movies_admin/manage.py migrate --fake-initial --settings=config.settings
 ```
 
 ## Перенос данных из sqlite в postgres
