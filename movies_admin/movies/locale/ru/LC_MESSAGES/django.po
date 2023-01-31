@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-24 06:05+0000\n"
+"POT-Creation-Date: 2023-01-31 06:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,62 +36,78 @@ msgstr "Изменен"
 msgid "name"
 msgstr "Имя"
 
-#: movies/models.py:25 movies/models.py:55
+#: movies/models.py:25 movies/models.py:57
 msgid "description"
 msgstr "Описание"
 
-#: movies/models.py:29 movies/models.py:74
+#: movies/models.py:29 movies/models.py:91
 msgid "genre"
 msgstr "Жанр"
 
-#: movies/models.py:30 movies/models.py:59 movies/models.py:79
+#: movies/models.py:30 movies/models.py:68 movies/models.py:97
 msgid "genres"
 msgstr "Жанры"
 
-#: movies/models.py:38
+#: movies/models.py:39
 msgid "full_name"
 msgstr "Полное имя"
 
-#: movies/models.py:42 movies/models.py:84
+#: movies/models.py:43 movies/models.py:110
 msgid "person"
 msgstr "Персона"
 
-#: movies/models.py:43 movies/models.py:60 movies/models.py:90
+#: movies/models.py:44 movies/models.py:71 movies/models.py:117
 msgid "persons"
 msgstr "Персоны"
 
-#: movies/models.py:51
+#: movies/models.py:53
 msgid "movie"
 msgstr "Фильм"
 
-#: movies/models.py:52
+#: movies/models.py:54
 msgid "tv_show"
 msgstr "Телешоу"
 
-#: movies/models.py:54
+#: movies/models.py:56
 msgid "title"
 msgstr "Название"
 
-#: movies/models.py:56
+#: movies/models.py:58
 msgid "creation_date"
 msgstr "Дата выхода"
 
-#: movies/models.py:57
+#: movies/models.py:60
 msgid "rating"
 msgstr "Рейтинг"
 
-#: movies/models.py:58
+#: movies/models.py:65
 msgid "type"
 msgstr "Тип"
 
-#: movies/models.py:64
+#: movies/models.py:74
+msgid "file"
+msgstr "Файл"
+
+#: movies/models.py:79
 msgid "Filmwork"
 msgstr "Кинопроизвидение"
 
-#: movies/models.py:65
+#: movies/models.py:80
 msgid "Filmworks"
 msgstr "Кинопроизвидения"
 
-#: movies/models.py:85
+#: movies/models.py:104
+msgid "director"
+msgstr "Кинорежисер"
+
+#: movies/models.py:105
+msgid "writer"
+msgstr "Писатель"
+
+#: movies/models.py:106
+msgid "actor"
+msgstr "Актер"
+
+#: movies/models.py:112
 msgid "role"
 msgstr "Роль"
