@@ -18,11 +18,11 @@ DSL = {
 
 def _execute_psql():
     command = (
-        f"psql "
-        f"-h 127.0.0.1 "
-        f"-U app "
-        f"-d movies_database "
-        f"-f schema_design/movies_database.ddl "
+        "psql "
+        "-h 127.0.0.1 "
+        "-U app "
+        "-d movies_database "
+        "-f schema_design/movies_database.ddl "
     )
     proc = Popen(
         command,
@@ -39,9 +39,7 @@ def _execute_psql():
 
 
 def _run_migrations():
-    command = (
-        f"python3 movies_admin/manage.py migrate --settings=config.settings"
-    )
+    command = "python3 movies_admin/manage.py migrate --fake-initial --settings=config.settings"
     proc = Popen(command, stdout=PIPE, stderr=PIPE, shell=True)
     stdout, stderr = proc.communicate()
     if proc.returncode:

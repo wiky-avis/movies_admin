@@ -1,3 +1,5 @@
+import os
+
 from models import (
     FilmWork,
     Genre,
@@ -27,9 +29,9 @@ MODELS = (
 )
 
 DSL = {
-    "dbname": "movies_database",
-    "user": "app",
-    "password": "123qwe",
-    "host": "127.0.0.1",
-    "port": 5432,
+    "dbname": os.environ.get("DB_NAME", "movies_database"),
+    "user": os.environ.get("DB_USER", "app"),
+    "password": os.environ.get("DB_PASSWORD", "123qwe"),
+    "host": os.environ.get("HOST", "127.0.0.1"),
+    "port": os.environ.get("PORT", 5432),
 }

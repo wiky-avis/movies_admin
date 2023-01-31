@@ -5,7 +5,7 @@ from models import TableName
 
 def get_fields(table_name: str) -> List[str]:
     return {
-        TableName.FILM_WORK.value: [
+        TableName.FILM_WORK.value: (
             "id",
             "title",
             "description",
@@ -15,28 +15,28 @@ def get_fields(table_name: str) -> List[str]:
             "created",
             "modified",
             "file_path",
-        ],
-        TableName.GENRE.value: [
+        ),
+        TableName.GENRE.value: (
             "id",
             "name",
             "description",
             "created",
             "modified",
-        ],
-        TableName.PERSON.value: ["id", "full_name", "created", "modified"],
-        TableName.GENRE_FILM_WORK.value: [
+        ),
+        TableName.PERSON.value: ("id", "full_name", "created", "modified"),
+        TableName.GENRE_FILM_WORK.value: (
             "id",
             "genre_id",
             "film_work_id",
             "created",
-        ],
-        TableName.PERSON_FILM_WORK.value: [
+        ),
+        TableName.PERSON_FILM_WORK.value: (
             "id",
             "person_id",
             "film_work_id",
             "role",
             "created",
-        ],
+        ),
     }.get(table_name)
 
 

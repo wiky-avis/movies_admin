@@ -36,6 +36,8 @@ class SQLiteExtractor:
                 table_name,
                 exc_info=True,
             )
+        finally:
+            self.cursor.close()
 
 
 class PostgresSaver:
@@ -68,3 +70,4 @@ class PostgresSaver:
                     exc_info=True,
                 )
         self.pg_conn.commit()
+        self.cursor.close()

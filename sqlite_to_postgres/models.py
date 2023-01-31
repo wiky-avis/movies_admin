@@ -10,6 +10,12 @@ class FilmWorkType(str, Enum):
     TV_SHOW = "tv_show"
 
 
+class PersonRole(str, Enum):
+    DIRECTOR = "director"
+    WRITER = "writer"
+    ACTOR = "actor"
+
+
 class TableName(str, Enum):
     FILM_WORK = "film_work"
     PERSON = "person"
@@ -61,5 +67,5 @@ class PersonFilmWork:
     id: uuid.UUID
     film_work_id: uuid.UUID
     person_id: uuid.UUID
-    role: str
+    role: str = PersonRole
     created: datetime = field(default=datetime.now())
