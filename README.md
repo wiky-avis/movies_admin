@@ -13,7 +13,7 @@ poetry install --no-root && poetry shell
 
 ## Создание схемы и таблиц в БД
 ```bash
-psql -h 127.0.0.1 -U app -d movies_database -f schema_design/movies_database.ddl
+psql -h 127.0.0.1 -p 6667 -U app -d movies_database -f schema_design/movies_database.ddl
 ```
 
 ## Применение миграций
@@ -26,6 +26,11 @@ python3 movies_admin/manage.py migrate --fake-initial --settings=config.settings
 cd sqlite_to_postgres && python3 load_data.py
 ```
 
+## Создать суперпользователя
+```bash
+python3 movies_admin/manage.py createsuperuser --username admin
+```
+
 ## Прогнать линтеры
 ```bash
 make linters
@@ -34,16 +39,24 @@ make linters
 ## Тестирование
 Поднять контейнер c БД Postgres
 ```bash
-docker run -d \
-  --name postgres \
-  -p 5432:5432 \
-  -v $HOME/postgresql/data:/var/lib/postgresql/data \
-  -e POSTGRES_PASSWORD=123qwe \
-  -e POSTGRES_USER=app \
-  -e POSTGRES_DB=movies_database  \
-  postgres:13
+cp .env.example .env
 ```
-Запустить тесты
+```bash
+make up_local_compose
+```
+Применить миграции django
+```bash
+python3 movies_admin/manage.py migrate --fake-initial --settings=config.settings
+```
+Залить тестовые данные
+```bash
+cd sqlite_to_postgres && python3 load_data.py
+```
+
+## Запуск тестов
+```bash
+cp .env.test .env
+```
 ```bash
 pytest
 ```

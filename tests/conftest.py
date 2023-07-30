@@ -12,7 +12,7 @@ DSL = {
     "user": "app",
     "password": "123qwe",
     "host": "127.0.0.1",
-    "port": 5432,
+    "port": 6667,
 }
 
 
@@ -20,6 +20,7 @@ def _execute_psql():
     command = (
         "psql "
         "-h 127.0.0.1 "
+        "-p 6667 "
         "-U app "
         "-d movies_database "
         "-f schema_design/movies_database.ddl "

@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  db:
+    ports:
+      - "6667:5432"
+    networks:
+      - "test-app"
+
+  admin_panel:
+    ports:
+      - "8000:8000"
+    networks:
+      - "test-app"
+
+networks:
+  test-app:
