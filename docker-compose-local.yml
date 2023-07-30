@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  db:
+    ports:
+      - "6667:5432"
+    networks:
+      - "test-app"
+
+  api:
+    ports:
+      - "8000:5000"
+    networks:
+      - "test-app"
+
+networks:
+  test-app:

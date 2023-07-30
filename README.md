@@ -34,16 +34,15 @@ make linters
 ## Тестирование
 Поднять контейнер c БД Postgres
 ```bash
-docker run -d \
-  --name postgres \
-  -p 5432:5432 \
-  -v $HOME/postgresql/data:/var/lib/postgresql/data \
-  -e POSTGRES_PASSWORD=123qwe \
-  -e POSTGRES_USER=app \
-  -e POSTGRES_DB=movies_database  \
-  postgres:13
+cp .env.example .env
+```
+```bash
+make up_local_compose
 ```
 Запустить тесты
+```bash
+cp .env.test .env
+```
 ```bash
 pytest
 ```
