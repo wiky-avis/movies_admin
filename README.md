@@ -26,6 +26,11 @@ python3 movies_admin/manage.py migrate --fake-initial --settings=config.settings
 cd sqlite_to_postgres && python3 load_data.py
 ```
 
+## Создать суперпользователя
+```bash
+python3 movies_admin/manage.py createsuperuser --username admin
+```
+
 ## Прогнать линтеры
 ```bash
 make linters
@@ -39,7 +44,16 @@ cp .env.example .env
 ```bash
 make up_local_compose
 ```
-Запустить тесты
+Применить миграции django
+```bash
+python3 movies_admin/manage.py migrate --fake-initial --settings=config.settings
+```
+Залить тестовые данные
+```bash
+cd sqlite_to_postgres && python3 load_data.py
+```
+
+## Запуск тестов
 ```bash
 cp .env.test .env
 ```

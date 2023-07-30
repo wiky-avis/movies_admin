@@ -22,10 +22,4 @@ psql postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME} -f 
 echo "Starting server"
 python3 movies_admin/manage.py runserver  0.0.0.0:${APP_PORT}
 
-# Migrations and load data
-echo "Apply migrations"
-python3 movies_admin/manage.py migrate --fake-initial --settings=config.settings
-echo "Load data"
-cd sqlite_to_postgres && python3 load_data.py
-
 exec "$@"
