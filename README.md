@@ -7,7 +7,7 @@
 
 ## Установка зависимостей
 ```bash
-pip install poetry==1.1.13
+pip install poetry==1.5.1
 poetry install --no-root && poetry shell
 ```
 
