@@ -7,7 +7,7 @@ services:
     networks:
       - "test-app"
 
-  api:
+  admin_panel:
     ports:
       - "8000:8000"
     networks:

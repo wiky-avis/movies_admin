@@ -23,7 +23,7 @@ services:
       timeout: 5s
       retries: 5
 
-  api:
+  admin_panel:
     build: .
     env_file:
       - ./.env

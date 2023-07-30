@@ -1,5 +1,6 @@
 import os
 
+
 DEBUG = True
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost").split()
