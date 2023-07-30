@@ -13,7 +13,7 @@ poetry install --no-root && poetry shell
 
 ## Создание схемы и таблиц в БД
 ```bash
-psql -h 127.0.0.1 -U app -d movies_database -f schema_design/movies_database.ddl
+psql -h 127.0.0.1 -p 6667 -U app -d movies_database -f schema_design/movies_database.ddl
 ```
 
 ## Применение миграций

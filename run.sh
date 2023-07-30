@@ -14,12 +14,18 @@ then
 
 fi
 
-# Migrations
-psql -h 127.0.0.1 -U app -d movies_database -f schema_design/movies_database.ddl
-python3 movies_admin/manage.py migrate --fake-initial --settings=config.settings
-cd sqlite_to_postgres && python3 load_data.py
-cd ..
+# Create database schema
+echo "Create database schema"
+psql postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME} -f schema_design/movies_database.ddl
 
 # Start server
 echo "Starting server"
-python3 movies_admin/manage.py runserver  0.0.0.0:8000
+python3 movies_admin/manage.py runserver  0.0.0.0:${APP_PORT}
+
+# Migrations and load data
+echo "Apply migrations"
+python3 movies_admin/manage.py migrate --fake-initial --settings=config.settings
+echo "Load data"
+cd sqlite_to_postgres && python3 load_data.py
+
+exec "$@"
